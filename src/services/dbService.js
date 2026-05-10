@@ -29,6 +29,18 @@ export const dbService = {
             .select()
         if (error) throw error
         return data[0]
+    },
+
+    // Criar Cliente
+    async criarCliente(nome, cidade, data_inscrição) {
+        const {data, error } = await supabase
+            .from('clientes')
+            .insert([{nome, cidade}])
+            .select()
+            .single()
+
+        if (error) throw error
+        return data
     }
 
 }

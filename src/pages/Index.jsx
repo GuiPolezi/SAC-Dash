@@ -2,6 +2,7 @@ import {Logout} from '../components/Logout'
 import { Link } from 'react-router-dom'
 import { CriarSuporte } from '../components/Suporte'
 import { CriarSistema } from '../components/Sistema'
+import { CriarCliente } from '../components/Cliente'
 
 export function Home() {
     return (
@@ -11,6 +12,7 @@ export function Home() {
 
         <CriarSuporte />
         <CriarSistema />
+        <CriarCliente />
         </>
     )
 }
