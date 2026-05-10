@@ -1,0 +1,51 @@
+// pages/Clientes.jsx
+import { useState, useEffect } from 'react'
+import { dbService } from '../services/dbService'
+import { DataTable } from '../components/DataTable'
+import { Link } from 'react-router-dom'
+
+export function Clientes() {
+    const [clientes, setClientes] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        async function carregar() {
+            try {
+                const dados = await dbService.listarClientes()
+                setClientes(dados)
+            } catch (error) {
+                console.error('Erro ao carregar:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        carregar()
+    }, [])
+
+    const columns = [
+        { header: 'Código', accessor: 'codigo_cliente' },
+        { header: 'Nome', accessor: 'nome' },
+        { header: 'Cidade', accessor: 'cidade' },
+        {
+            header: 'Ações',
+            cell: (row) => (
+                <Link to={`/clientes/${row.codigo_cliente}/editar`} className="text-blue-600 hover:text-blue-800">
+                    Editar
+                </Link>
+            )
+        }
+    ]
+
+    if (loading) return <div className="text-center py-8">Carregando...</div>
+
+    return (
+        <DataTable
+            title="Clientes"
+            description="Gerencie todos os clientes do sistema"
+            data={clientes}
+            columns={columns}
+            createLink="/clientes/novo"
+            createText="Novo Cliente"
+        />
+    )
+}
