@@ -33,9 +33,9 @@ export const dbService = {
 
     // Criar Cliente
     async criarCliente(nome, cidade, data_inscrição) {
-        const {data, error } = await supabase
+        const { data, error } = await supabase
             .from('clientes')
-            .insert([{nome, cidade}])
+            .insert([{ nome, cidade }])
             .select()
             .single()
 
@@ -45,14 +45,103 @@ export const dbService = {
 
     // Criar Registro de Problema
     async criarProblema(problema) {
-        const {data, error } = await supabase
-        .from('problemas')
-        .insert([{problema}])
+        const { data, error } = await supabase
+            .from('problemas')
+            .insert([{ problema }])
+            .select()
+            .single()
+
+
+        if (error) throw error
+        return data
+    },
+
+    // CRIAÇÕES PARA OCORRENCIAS
+    // ─── LISTAR (para popular os <select> do formulário) ───────────────────────
+
+    // Listar todos os clientes
+    async listarClientes() {
+        const { data, error } = await supabase
+            .from('clientes')
+            .select('codigo_cliente, nome, cidade')
+            .order('nome')
+
+        if (error) throw error
+        return data
+    },
+
+    // Listar todos os usuários de suporte
+    async listarSuportes() {
+        const { data, error } = await supabase
+            .from('suporte')
+            .select('codigo_suporte, nome')
+            .order('nome')
+
+        if (error) throw error
+        return data
+    },
+
+    // Listar todos os sistemas
+    async listarSistemas() {
+        const { data, error } = await supabase
+            .from('sistemas')
+            .select('codigo_sistema, nome_sistema, tipo')
+            .order('nome_sistema')
+
+        if (error) throw error
+        return data
+    },
+
+    // Listar todos os problemas
+    async listarProblemas() {
+        const { data, error } = await supabase
+            .from('problemas')
+            .select('codigo_problema, problema')
+            .order('problema')
+
+        if (error) throw error
+        return data
+    },
+
+    
+// ─── CRIAR OCORRÊNCIA ──────────────────────────────────────────────────────
+ 
+async criarOcorrencia({
+    id_cliente,
+    id_suporte,   // pode ser null
+    id_sistema,
+    id_problema,
+    data_chamado,
+    data_resposta,  // pode ser null
+    hora_inicial,   // pode ser null
+    hora_final,     // pode ser null
+    status = 'aberto',
+}) {
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+ 
+    if (!user) {
+        throw new Error('Usuário não autenticado. Faça login antes de inserir.')
+    }
+ 
+    const { data, error } = await supabase
+        .from('ocorrencias')
+        .insert([{
+            id_cliente,
+            id_suporte,
+            id_sistema,
+            id_problema,
+            data_chamado,
+            data_resposta,
+            hora_inicial,
+            hora_final,
+            status,
+        }])
         .select()
         .single()
-    
-
+ 
     if (error) throw error
     return data
-    }
+},
 }
+
+
