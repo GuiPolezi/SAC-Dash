@@ -4,6 +4,7 @@ import { Register } from "./components/Register"
 import { PublicRoute } from "./components/PublicRoute"
 import { PrivateRoute } from "./components/PrivateRoute"
 import { Home } from './pages/index'
+import { OcorrenciaForm } from "./components/Ocorrencia"
 
 export default function AppRoutes({ session }) {
   return (
@@ -36,7 +37,15 @@ export default function AppRoutes({ session }) {
         }
       />
 
-   
+      {/* Rota para editar (o :id é o que o seu useParams captura) */}
+
+      <Route
+        path="/ocorrencias/:id/editar"
+        element={
+          <PrivateRoute session={session}>
+            <OcorrenciaForm />
+          </PrivateRoute>
+        } />
 
     </Routes>
   )

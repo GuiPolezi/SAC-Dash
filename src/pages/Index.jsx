@@ -4,7 +4,7 @@ import { CriarSuporte } from '../components/Suporte'
 import { CriarSistema } from '../components/Sistema'
 import { CriarCliente } from '../components/Cliente'
 import { CriarProblema } from '../components/Problema'
-import { CriarOcorrencia } from '../components/Ocorrencia'
+import { OcorrenciaForm, OcorrenciaLista } from '../components/Ocorrencia'
 
 export function Home() {
     return (
@@ -16,7 +16,8 @@ export function Home() {
         <CriarSistema />
         <CriarCliente />
         <CriarProblema />
-        <CriarOcorrencia />
+        <OcorrenciaForm />
+        <OcorrenciaLista />
         </>
     )
 }
