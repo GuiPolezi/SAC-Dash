@@ -41,6 +41,18 @@ export const dbService = {
 
         if (error) throw error
         return data
-    }
+    },
 
+    // Criar Registro de Problema
+    async criarProblema(problema) {
+        const {data, error } = await supabase
+        .from('problemas')
+        .insert([{problema}])
+        .select()
+        .single()
+    
+
+    if (error) throw error
+    return data
+    }
 }
