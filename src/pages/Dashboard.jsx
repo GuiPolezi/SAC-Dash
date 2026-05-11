@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { dbService } from '../services/dbService'
 import { Link } from 'react-router-dom'
+import { Logout } from '../components/Logout'
 
 export function Dashboard() {
     const [stats, setStats] = useState({
@@ -140,6 +141,7 @@ export function Dashboard() {
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Dashboard Geral</h1>
                     <p className="text-sm text-gray-500 mt-1">Acompanhe as métricas e chamados do seu HelpDesk.</p>
+                    <Logout />
                 </div>
                 <div>
                     <Link to="/ocorrencias/nova" className="inline-flex items-center justify-center gap-2 bg-[#283618] text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-[#1f2a12] transition-all shadow-sm">
