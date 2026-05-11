@@ -221,6 +221,7 @@ export const dbService = {
                 // Correção aqui: Adicionando { timeZone: 'UTC' }
                 "Data do Chamado": new Date(oc.data_chamado).toLocaleDateString('pt-BR', { timeZone: 'UTC' }),
                 "Cliente": oc.nome_cliente,
+                "Cidade": oc.cidade_cliente,
                 "Sistema": oc.nome_sistema,
                 "Problema": oc.nome_problema,
                 "Suporte": oc.nome_suporte,
