@@ -403,12 +403,17 @@ export function OcorrenciaLista() {
     <div className="max-w-6xl mx-auto p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Chamados de Suporte</h1>
-        <Link 
-          to="/ocorrencias/nova" 
-          className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800"
-        >
-          Novo Chamado
-        </Link>
+        <div className="flex gap-5">
+            <Link to="/" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800">
+                Voltar
+            </Link>
+            <Link 
+            to="/ocorrencias/nova" 
+            className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800"
+            >
+            Novo Chamado
+            </Link>
+        </div>
       </div>
 
       <div className="bg-white shadow rounded-lg overflow-hidden">
