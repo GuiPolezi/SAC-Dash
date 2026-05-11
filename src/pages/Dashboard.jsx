@@ -108,7 +108,7 @@ export function Dashboard() {
             )
         },
     ]
-    
+
     if (loading) {
         return (
             <div className="flex h-64 items-center justify-center">
@@ -139,9 +139,9 @@ export function Dashboard() {
             {/* Cards de Estatísticas (Minimalistas) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {cards.map((card, index) => (
-                    <Link 
+                    <Link
                         to={card.link}
-                        key={index} 
+                        key={index}
                         className="block bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start justify-between cursor-pointer hover:shadow-md hover:border-[#283618]/30 hover:-translate-y-1 transition-all duration-200"
                     >
                         <div>
@@ -212,6 +212,9 @@ export function Dashboard() {
                                         <tr className="border-b border-gray-100 bg-gray-50/50">
                                             <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">ID</th>
                                             <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Cliente</th>
+                                            <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Suporte</th>
+                                            <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Sistema</th>
+                                            <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Problema</th>
                                             <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                                             <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Data</th>
                                             <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Ação</th>
@@ -226,6 +229,9 @@ export function Dashboard() {
                                                 <td className="px-6 py-4 text-sm text-gray-600 font-medium">
                                                     {oc.nome_cliente}
                                                 </td>
+                                                <td className="px-6 py-4 text-sm text-gray-600 font-medium">{oc.nome_suporte}</td>
+                                                <td className="px-6 py-4 text-sm text-gray-600 font-medium">{oc.nome_sistema}</td>
+                                                <td className="px-6 py-4 text-sm text-gray-600 font-medium">{oc.nome_problema}</td>
                                                 <td className="px-6 py-4 text-sm">
                                                     <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ${getStatusStyle(oc.status)}`}>
                                                         {formatarStatus(oc.status)}
