@@ -182,7 +182,7 @@ export const dbService = {
             .from("ocorrencias")
             .select(`
       *,
-      clientes:id_cliente (nome),
+      clientes:id_cliente (nome, cidade),
       sistemas:id_sistema (nome_sistema),
       suportes:id_suporte (nome),
       problemas:id_problema (problema)
@@ -196,6 +196,7 @@ export const dbService = {
         return data.map(oc => ({
             ...oc,
             nome_cliente: oc.clientes?.nome || "Não informado",
+            cidade_cliente: oc.clientes?.cidade || "Não informada",
             nome_sistema: oc.sistemas?.nome_sistema || "Não informado",
             nome_suporte: oc.suportes?.nome || "Sem responsável",
             nome_problema: oc.problemas?.problema || "Sem Problema",

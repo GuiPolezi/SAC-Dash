@@ -495,6 +495,7 @@ export function OcorrenciaLista() {
                                 <div className="flex-1 min-w-0 w-full">
                                     <div className="flex items-center gap-2 mb-1">
                                         <h3 className="text-lg font-bold text-gray-900 truncate">{oc.nome_cliente}</h3>
+                                        <p>- {oc.cidade_cliente}</p>
                                         <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600 border border-gray-200">
                                             {oc.nome_sistema}
                                         </span>
