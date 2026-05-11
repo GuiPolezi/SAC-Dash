@@ -47,6 +47,8 @@ export function Suportes() {
             columns={columns}
             createLink="/suportes/novo"
             createText="Novo Suporte"
+            homeLink="/"
+            homeText="Voltar"
         />
     )
 }
