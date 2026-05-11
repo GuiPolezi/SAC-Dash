@@ -17,13 +17,18 @@ export function GerarPlanilhaOcorrencias() {
     };
 
     return (
-        <button 
-            onClick={handleExportar} 
-            className="btn-excel"
+        <button
+            onClick={handleExportar}
             disabled={isExporting}
-            style={{ opacity: isExporting ? 0.7 : 1, cursor: isExporting ? 'not-allowed' : 'pointer' }}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg shadow-sm transition-all focus:ring-4
+        ${isExporting
+                    ? 'bg-emerald-400 cursor-not-allowed opacity-80'
+                    : 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-600/30'}`}
         >
-            {isExporting ? 'Gerando Planilha...' : 'Exportar para Excel'}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            {isExporting ? 'Gerando...' : 'Excel'}
         </button>
     );
 }
@@ -44,13 +49,18 @@ export function GerarPlanilhaProblemas() {
     };
 
     return (
-        <button 
-            onClick={handleExportar} 
-            className="btn-excel"
+        <button
+            onClick={handleExportar}
             disabled={isExporting}
-            style={{ opacity: isExporting ? 0.7 : 1, cursor: isExporting ? 'not-allowed' : 'pointer' }}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg shadow-sm transition-all focus:ring-4
+        ${isExporting
+                    ? 'bg-emerald-400 cursor-not-allowed opacity-80'
+                    : 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-600/30'}`}
         >
-            {isExporting ? 'Gerando Planilha...' : 'Exportar para Excel'}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            {isExporting ? 'Gerando...' : 'Excel'}
         </button>
     )
 }
@@ -71,13 +81,18 @@ export function GerarPlanilhaClientes() {
     };
 
     return (
-        <button 
-            onClick={handleExportar} 
-            className="btn-excel"
+        <button
+            onClick={handleExportar}
             disabled={isExporting}
-            style={{ opacity: isExporting ? 0.7 : 1, cursor: isExporting ? 'not-allowed' : 'pointer' }}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg shadow-sm transition-all focus:ring-4
+        ${isExporting
+                    ? 'bg-emerald-400 cursor-not-allowed opacity-80'
+                    : 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-600/30'}`}
         >
-            {isExporting ? 'Gerando Planilha...' : 'Exportar para Excel'}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            {isExporting ? 'Gerando...' : 'Excel'}
         </button>
     )
 }
@@ -98,16 +113,21 @@ export function GerarPlanilhaSuportes() {
     };
 
     return (
-        <button 
-            onClick={handleExportar} 
-            className="btn-excel"
+        <button
+            onClick={handleExportar}
             disabled={isExporting}
-            style={{ opacity: isExporting ? 0.7 : 1, cursor: isExporting ? 'not-allowed' : 'pointer' }}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg shadow-sm transition-all focus:ring-4
+        ${isExporting
+                    ? 'bg-emerald-400 cursor-not-allowed opacity-80'
+                    : 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-600/30'}`}
         >
-            {isExporting ? 'Gerando Planilha...' : 'Exportar para Excel'}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            {isExporting ? 'Gerando...' : 'Excel'}
         </button>
     )
-    
+
 }
 
 
@@ -126,14 +146,19 @@ export function GerarPlanilhaSistemas() {
     };
 
     return (
-        <button 
-            onClick={handleExportar} 
-            className="btn-excel"
+        <button
+            onClick={handleExportar}
             disabled={isExporting}
-            style={{ opacity: isExporting ? 0.7 : 1, cursor: isExporting ? 'not-allowed' : 'pointer' }}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg shadow-sm transition-all focus:ring-4
+        ${isExporting
+                    ? 'bg-emerald-400 cursor-not-allowed opacity-80'
+                    : 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-600/30'}`}
         >
-            {isExporting ? 'Gerando Planilha...' : 'Exportar para Excel'}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            {isExporting ? 'Gerando...' : 'Excel'}
         </button>
     )
-    
+
 }
