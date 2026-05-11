@@ -12,6 +12,7 @@ import { CriarSistema } from "./components/Sistema"
 import { CriarProblema } from "./components/Problema"
 import { Dashboard } from "./pages/Dashboard"
 import { Suportes } from "./pages/Suportes"
+import { Problemas } from "./pages/Problemas"
 
 export default function AppRoutes({ session }) {
   return (
@@ -125,6 +126,16 @@ export default function AppRoutes({ session }) {
           </PrivateRoute>
         }
       />
+
+      <Route
+        path="/problemas"
+        element={
+          <PrivateRoute session={session}>
+            <Problemas />
+          </PrivateRoute>
+        }
+      />
+
     </Routes>
   )
 }

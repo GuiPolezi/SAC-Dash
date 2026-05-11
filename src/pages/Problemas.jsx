@@ -1,18 +1,18 @@
-// pages/Suportes.jsx
+// pages/Problemas.jsx
 import { useState, useEffect } from 'react'
 import { dbService } from '../services/dbService'
 import { DataTable } from '../components/DataTable'
 import { Link } from 'react-router-dom'
 
-export function Suportes() {
-    const [suporte, setSuporte] = useState([])
+export function Problemas() {
+    const [problemas, setProblemas] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         async function carregar() {
             try {
-                const dados = await dbService.listarSuportes()
-                setSuporte(dados)
+                const dados = await dbService.listarProblemas()
+                setProblemas(dados)
             } catch (error) {
                 console.error('Erro ao carregar:', error)
             } finally {
@@ -23,14 +23,12 @@ export function Suportes() {
     }, [])
 
     const columns = [
-        { header: 'Código', accessor: 'codigo_suporte' },
-        { header: 'Nome', accessor: 'nome' },
-        { header: 'Sexo', accessor: 'sexo' },
-        { header: 'Data Nascimento', accessor: 'data_nascimento' },
+        { header: 'Código', accessor: 'codigo_problema' },
+        { header: 'Tipo de Problema', accessor: 'problema' },
         {
             header: 'Ações',
             cell: (row) => (
-                <Link to={`/suportes/${row.codigo_cliente}/editar`} className="text-blue-600 hover:text-blue-800">
+                <Link to={`/problemas/${row.codigo_cliente}/editar`} className="text-blue-600 hover:text-blue-800">
                     Editar
                 </Link>
             )
@@ -41,12 +39,12 @@ export function Suportes() {
 
     return (
         <DataTable
-            title="Suportes"
-            description="Gerencie todos os suportes do sistema"
-            data={suporte}
+            title="Problemas"
+            description="Gerencie todos os Problemas do sistema"
+            data={problemas}
             columns={columns}
-            createLink="/suportes/novo"
-            createText="Novo Suporte"
+            createLink="/problemas/novo"
+            createText="Novo Problema"
         />
     )
 }
