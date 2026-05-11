@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export function Dashboard() {
     const [stats, setStats] = useState({
         totalOcorrencias: 0,
-        ocorrenciasAbertas: 0,
+        totalProblemas: 0,
         totalClientes: 0,
         totalSuportes: 0
     })
@@ -19,10 +19,11 @@ export function Dashboard() {
                 const ocorrencias = await dbService.listarOcorrencias()
                 const clientes = await dbService.listarClientes()
                 const suportes = await dbService.listarSuportes()
+                const problemas = await dbService.listarProblemas()
 
                 setStats({
                     totalOcorrencias: ocorrencias.length,
-                    ocorrenciasAbertas: ocorrencias.filter(o => o.status === 'aberto').length,
+                    totalProblemas: problemas.length,
                     totalClientes: clientes.length,
                     totalSuportes: suportes.length
                 })
@@ -71,8 +72,9 @@ export function Dashboard() {
             )
         },
         {
-            title: 'Ocorrências Abertas',
-            value: stats.ocorrenciasAbertas,
+            title: 'Problemas Ativos',
+            value: stats.totalProblemas,
+            link: '/problemas',
             bgIcon: 'bg-amber-50',
             colorIcon: 'text-amber-600',
             icon: (
