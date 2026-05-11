@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { dbService } from '../services/dbService'
 import { DataTable } from '../components/DataTable'
 import { Link } from 'react-router-dom'
+import { GerarPlanilhaSuportes } from '../components/Planilhas'
 
 export function Suportes() {
     const [suporte, setSuporte] = useState([])
@@ -49,6 +50,7 @@ export function Suportes() {
             createText="Novo Suporte"
             homeLink="/"
             homeText="Voltar"
+            actions={<GerarPlanilhaSuportes />}
         />
     )
 }

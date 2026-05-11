@@ -299,6 +299,34 @@ export const dbService = {
             throw error;
         }
     },
+
+    async exportarSuportesParaExcel() {
+        try {
+            const dados = await this.listarSuportes();
+
+            if (!dados || dados.length === 0) {
+                alert("Não há dados para exportar.");
+                return;
+            }
+
+             const dadosFormatados = dados.map(oc => ({
+                "codigo_suporte": oc.codigo_suporte,
+                "Nome": oc.nome,
+                "Sexo": oc.sexo,
+                "Data Nascimento": oc.data_nascimento
+            }));
+
+            // Cria a planilha
+            const worksheet = XLSX.utils.json_to_sheet(dadosFormatados);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Suportes");
+
+            XLSX.writeFile(workbook, `dSuportes_${new Date().getTime()}.xlsx`);
+        } catch (error) {
+            console.error("Erro ao exportar Excel: ", error)
+            throw error;
+        }
+    },
 }
 
 
