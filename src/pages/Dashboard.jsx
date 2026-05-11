@@ -8,7 +8,8 @@ export function Dashboard() {
         totalOcorrencias: 0,
         totalProblemas: 0,
         totalClientes: 0,
-        totalSuportes: 0
+        totalSuportes: 0,
+        totalSistemas: 0,
     })
     const [ultimasOcorrencias, setUltimasOcorrencias] = useState([])
     const [loading, setLoading] = useState(true)
@@ -20,12 +21,14 @@ export function Dashboard() {
                 const clientes = await dbService.listarClientes()
                 const suportes = await dbService.listarSuportes()
                 const problemas = await dbService.listarProblemas()
+                const sistemas = await dbService.listarSistemas()
 
                 setStats({
                     totalOcorrencias: ocorrencias.length,
                     totalProblemas: problemas.length,
                     totalClientes: clientes.length,
-                    totalSuportes: suportes.length
+                    totalSuportes: suportes.length,
+                    totalSistemas: sistemas.length,
                 })
 
                 setUltimasOcorrencias(ocorrencias.slice(0, 5))
@@ -99,6 +102,18 @@ export function Dashboard() {
             title: 'Equipe Suporte',
             value: stats.totalSuportes,
             link: '/suportes', // <-- Adicionado (certifique-se de que essa rota existe ou ajuste para outra)
+            bgIcon: 'bg-[#283618]/10',
+            colorIcon: 'text-[#283618]',
+            icon: (
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            )
+        },
+         {
+            title: 'Sistemas Ativos',
+            value: stats.totalSistemas,
+            link: '/sistemas', // <-- Adicionado (certifique-se de que essa rota existe ou ajuste para outra)
             bgIcon: 'bg-[#283618]/10',
             colorIcon: 'text-[#283618]',
             icon: (
