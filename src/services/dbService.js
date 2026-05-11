@@ -244,7 +244,33 @@ export const dbService = {
             console.error("Erro ao exportar Excel:", error);
             throw error;
         }
-    }
+    },
+
+    async exportarProblemasParaExcel() {
+        try {
+            const dados = await this.listarProblemas();
+
+            if (!dados || dados.length === 0) {
+                alert("Não há dados para exportar.");
+                return;
+            }
+
+             const dadosFormatados = dados.map(oc => ({
+                "codigo_problema": oc.codigo_problema,
+                "Problema": oc.problema,
+            }));
+
+            // Cria a planilha
+            const worksheet = XLSX.utils.json_to_sheet(dadosFormatados);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Problemas");
+
+            XLSX.writeFile(workbook, `dProblemas_${new Date().getTime()}.xlsx`);
+        } catch (error) {
+            console.error("Erro ao exportar Excel: ", error)
+            throw error;
+        }
+    },
 }
 
 

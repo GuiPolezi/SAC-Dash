@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { dbService } from '../services/dbService'
 import { DataTable } from '../components/DataTable'
 import { Link } from 'react-router-dom'
+import { GerarPlanilhaProblemas } from '../components/Planilhas'
 
 export function Problemas() {
     const [problemas, setProblemas] = useState([])
@@ -47,6 +48,7 @@ export function Problemas() {
             createText="Novo Problema"
             homeLink="/"
             homeText="Voltar"
+            actions={<GerarPlanilhaProblemas />}
         />
     )
 }

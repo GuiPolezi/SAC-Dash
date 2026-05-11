@@ -1,7 +1,7 @@
 // components/DataTable.jsx
 import { Link } from 'react-router-dom'
 
-export function DataTable({ title, description, data, columns, createLink, createText, homeLink, homeText }) {
+export function DataTable({ title, description, data, columns, createLink, createText, homeLink, homeText, actions }) {
     return (
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
             {/* Header */}
@@ -25,6 +25,7 @@ export function DataTable({ title, description, data, columns, createLink, creat
                             <span>+</span>
                             <span>{createText || `Novo ${title}`}</span>
                         </Link>
+                        {actions}
                     </div>
                 )}
             </div>
