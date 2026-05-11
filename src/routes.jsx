@@ -13,6 +13,8 @@ import { CriarProblema } from "./components/Problema"
 import { Dashboard } from "./pages/Dashboard"
 import { Suportes } from "./pages/Suportes"
 import { Problemas } from "./pages/Problemas"
+import { Sistemas } from "./pages/Sistemas"
+
 
 export default function AppRoutes({ session }) {
   return (
@@ -114,6 +116,15 @@ export default function AppRoutes({ session }) {
         element={
           <PrivateRoute session={session}>
             <CriarSistema />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/sistemas"
+        element={
+          <PrivateRoute session={session}>
+            <Sistemas />
           </PrivateRoute>
         }
       />
