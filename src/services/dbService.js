@@ -184,7 +184,8 @@ export const dbService = {
       *,
       clientes:id_cliente (nome),
       sistemas:id_sistema (nome_sistema),
-      suportes:id_suporte (nome) 
+      suportes:id_suporte (nome),
+      problemas:id_problema (problema)
     `) // O formato 'apelido:coluna_fk (campos)' ajuda o Supabase a se achar
     .order("data_chamado", { ascending: false });
 
@@ -196,7 +197,8 @@ export const dbService = {
     ...oc,
     nome_cliente: oc.clientes?.nome || "Não informado",
     nome_sistema: oc.sistemas?.nome_sistema || "Não informado",
-    nome_suporte: oc.suportes?.nome || "Sem responsável"
+    nome_suporte: oc.suportes?.nome || "Sem responsável",
+    nome_problema: oc.problemas?.problema || "Sem Problema",
   }));
 }
 }

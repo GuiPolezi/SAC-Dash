@@ -417,6 +417,9 @@ export function OcorrenciaLista() {
             <tr>
               <th className="p-4">ID</th>
               <th className="p-4">Cliente</th>
+              <th className="p-4">Suporte</th>
+              <th className="p-4">Sistema</th>
+              <th className="p-4">Problema</th>
               <th className="p-4">Status</th>
               <th className="p-4 text-center">Ações</th>
             </tr>
@@ -426,6 +429,9 @@ export function OcorrenciaLista() {
               <tr key={oc.id} className="border-b hover:bg-gray-50">
                 <td className="p-4">#{oc.id}</td>
                 <td className="p-4">{oc.nome_cliente}</td>
+                <td className="p-4">{oc.nome_suporte}</td>
+                <td className="p-4">{oc.nome_sistema}</td>
+                <td className="p-4">{oc.nome_problema}</td>
                 <td className="p-4">
                   <span className={`px-2 py-1 rounded text-xs ${
                     oc.status === 'aberto' ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800'
