@@ -45,6 +45,8 @@ export function Problemas() {
             columns={columns}
             createLink="/problemas/novo"
             createText="Novo Problema"
+            homeLink="/"
+            homeText="Voltar"
         />
     )
 }

@@ -1,7 +1,7 @@
 // components/DataTable.jsx
 import { Link } from 'react-router-dom'
 
-export function DataTable({ title, description, data, columns, createLink, createText }) {
+export function DataTable({ title, description, data, columns, createLink, createText, homeLink, homeText }) {
     return (
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
             {/* Header */}
@@ -11,13 +11,21 @@ export function DataTable({ title, description, data, columns, createLink, creat
                     {description && <p className="text-gray-600 mt-1">{description}</p>}
                 </div>
                 {createLink && (
-                    <Link
-                        to={createLink}
-                        className="bg-[#283618] text-white px-4 py-2 rounded-lg hover:bg-[#3a4d2a] transition-colors flex items-center gap-2"
-                    >
-                        <span>+</span>
-                        <span>{createText || `Novo ${title}`}</span>
-                    </Link>
+                    <div className='flex gap-2'>
+                        <Link
+                            to={homeLink}
+                            className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors flex items-center gap-2'
+                        >
+                            <span>{homeText}</span>
+                        </Link>
+                        <Link
+                            to={createLink}
+                            className="bg-[#283618] text-white px-4 py-2 rounded-lg hover:bg-[#3a4d2a] transition-colors flex items-center gap-2"
+                        >
+                            <span>+</span>
+                            <span>{createText || `Novo ${title}`}</span>
+                        </Link>
+                    </div>
                 )}
             </div>
 
