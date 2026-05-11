@@ -3,7 +3,6 @@ import { Login } from "./components/Login"
 import { Register } from "./components/Register"
 import { PublicRoute } from "./components/PublicRoute"
 import { PrivateRoute } from "./components/PrivateRoute"
-import { Home } from './pages/index'
 import { OcorrenciaForm, OcorrenciaLista } from "./components/Ocorrencia"
 import { Clientes } from "./pages/Clientes"
 import { CriarCliente } from "./components/Cliente"
