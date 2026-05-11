@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { dbService } from '../services/dbService'
 import { DataTable } from '../components/DataTable'
 import { Link } from 'react-router-dom'
+import { GerarPlanilhaClientes } from '../components/Planilhas'
 
 export function Clientes() {
     const [clientes, setClientes] = useState([])
@@ -49,6 +50,7 @@ export function Clientes() {
             createText="Novo Cliente"
             homeLink="/"
             homeText="Voltar"
+            actions={<GerarPlanilhaClientes />}
         />
     )
 }

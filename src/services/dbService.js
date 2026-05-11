@@ -271,6 +271,34 @@ export const dbService = {
             throw error;
         }
     },
+
+    async exportarClientesParaExcel() {
+        try {
+            const dados = await this.listarClientes();
+
+            if (!dados || dados.length === 0) {
+                alert("Não há dados para exportar.");
+                return;
+            }
+
+             const dadosFormatados = dados.map(oc => ({
+                "codigo_cliente": oc.codigo_cliente,
+                "Nome": oc.nome,
+                "Cidade": oc.cidade,
+                "Data Inscrição": oc.data_inscricao
+            }));
+
+            // Cria a planilha
+            const worksheet = XLSX.utils.json_to_sheet(dadosFormatados);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Clientes");
+
+            XLSX.writeFile(workbook, `dClientes_${new Date().getTime()}.xlsx`);
+        } catch (error) {
+            console.error("Erro ao exportar Excel: ", error)
+            throw error;
+        }
+    },
 }
 
 
