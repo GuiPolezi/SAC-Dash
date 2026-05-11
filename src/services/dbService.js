@@ -340,7 +340,7 @@ export const dbService = {
              const dadosFormatados = dados.map(oc => ({
                 "codigo_sistema": oc.codigo_sistema,
                 "Tipo": oc.tipo,
-                "Nome": oc.nome,
+                "Nome": oc.nome_sistema,
             }));
 
             // Cria a planilha
