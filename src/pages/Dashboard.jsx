@@ -19,14 +19,14 @@ export function Dashboard() {
                 const ocorrencias = await dbService.listarOcorrencias()
                 const clientes = await dbService.listarClientes()
                 const suportes = await dbService.listarSuportes()
-                
+
                 setStats({
                     totalOcorrencias: ocorrencias.length,
                     ocorrenciasAbertas: ocorrencias.filter(o => o.status === 'aberto').length,
                     totalClientes: clientes.length,
                     totalSuportes: suportes.length
                 })
-                
+
                 setUltimasOcorrencias(ocorrencias.slice(0, 5))
             } catch (error) {
                 console.error('Erro ao carregar dados:', error)
@@ -39,14 +39,14 @@ export function Dashboard() {
 
     // Função para estilizar as pílulas de status de forma moderna
     const getStatusStyle = (status) => {
-        switch(status) {
-            case 'aberto': 
+        switch (status) {
+            case 'aberto':
                 return 'bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20'
-            case 'em_andamento': 
+            case 'em_andamento':
                 return 'bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-600/20'
-            case 'resolvido': 
+            case 'resolvido':
                 return 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20'
-            default: 
+            default:
                 return 'bg-gray-50 text-gray-600 ring-1 ring-inset ring-gray-500/20'
         }
     }
@@ -58,10 +58,11 @@ export function Dashboard() {
 
     // Configuração dos cards com SVGs ao invés de emojis para um visual profissional
     const cards = [
-        { 
-            title: 'Total Ocorrências', 
-            value: stats.totalOcorrencias, 
-            bgIcon: 'bg-indigo-50', 
+        {
+            title: 'Total Ocorrências',
+            value: stats.totalOcorrencias,
+            link: '/ocorrencias', // <-- Adicionado
+            bgIcon: 'bg-indigo-50',
             colorIcon: 'text-indigo-600',
             icon: (
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,10 +70,10 @@ export function Dashboard() {
                 </svg>
             )
         },
-        { 
-            title: 'Ocorrências Abertas', 
-            value: stats.ocorrenciasAbertas, 
-            bgIcon: 'bg-amber-50', 
+        {
+            title: 'Ocorrências Abertas',
+            value: stats.ocorrenciasAbertas,
+            bgIcon: 'bg-amber-50',
             colorIcon: 'text-amber-600',
             icon: (
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,10 +81,11 @@ export function Dashboard() {
                 </svg>
             )
         },
-        { 
-            title: 'Clientes Ativos', 
-            value: stats.totalClientes, 
-            bgIcon: 'bg-emerald-50', 
+        {
+            title: 'Clientes Ativos',
+            value: stats.totalClientes,
+            link: '/clientes', // <-- Adicionado
+            bgIcon: 'bg-emerald-50',
             colorIcon: 'text-emerald-600',
             icon: (
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,10 +93,11 @@ export function Dashboard() {
                 </svg>
             )
         },
-        { 
-            title: 'Equipe Suporte', 
-            value: stats.totalSuportes, 
-            bgIcon: 'bg-[#283618]/10', 
+        {
+            title: 'Equipe Suporte',
+            value: stats.totalSuportes,
+            link: '/suportes', // <-- Adicionado (certifique-se de que essa rota existe ou ajuste para outra)
+            bgIcon: 'bg-[#283618]/10',
             colorIcon: 'text-[#283618]',
             icon: (
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -103,7 +106,7 @@ export function Dashboard() {
             )
         },
     ]
-
+    
     if (loading) {
         return (
             <div className="flex h-64 items-center justify-center">
@@ -114,7 +117,7 @@ export function Dashboard() {
 
     return (
         <div className="space-y-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            
+
             {/* Header Moderno */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
@@ -134,7 +137,11 @@ export function Dashboard() {
             {/* Cards de Estatísticas (Minimalistas) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {cards.map((card, index) => (
-                    <div key={index} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start justify-between hover:shadow-md transition-shadow duration-200">
+                    <Link 
+                        to={card.link}
+                        key={index} 
+                        className="block bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start justify-between cursor-pointer hover:shadow-md hover:border-[#283618]/30 hover:-translate-y-1 transition-all duration-200"
+                    >
                         <div>
                             <p className="text-sm font-medium text-gray-500 mb-1">{card.title}</p>
                             <h3 className="text-3xl font-bold text-gray-900">{card.value}</h3>
@@ -142,16 +149,16 @@ export function Dashboard() {
                         <div className={`p-3 rounded-xl ${card.bgIcon} ${card.colorIcon}`}>
                             {card.icon}
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
+
                 {/* Ações Rápidas (Estilo Tiles) */}
                 <div className="lg:col-span-1 flex flex-col gap-4">
                     <h2 className="text-lg font-semibold text-gray-900">Acesso Rápido</h2>
-                    
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
                         <Link to="/clientes/novo" className="group flex items-center p-4 bg-white border border-gray-100 rounded-xl shadow-sm hover:border-[#283618]/30 hover:shadow-md transition-all">
                             <div className="bg-blue-50 text-blue-600 p-2.5 rounded-lg mr-4 group-hover:bg-blue-100 transition-colors">
@@ -190,7 +197,7 @@ export function Dashboard() {
                             Ver todos &rarr;
                         </Link>
                     </div>
-                    
+
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         {ultimasOcorrencias.length === 0 ? (
                             <div className="p-8 text-center text-gray-500 text-sm">
