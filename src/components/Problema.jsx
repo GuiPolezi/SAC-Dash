@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { dbService } from "../services/dbService";
 import { Link } from 'react-router-dom' //
-
+import { useNavigate } from "react-router-dom";
 export function CriarProblema() {
     const [problema, setProblema] = useState('')
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate(); // 🔹 hook para redirecionar
     const handleCriar = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -15,6 +16,7 @@ export function CriarProblema() {
             setProblema('')
 
             // Aqui eu posso redirecionar o usuario para outra tela
+            navigate('/')
         } catch (error) {
             alert("Erro ao criar: " + error.message)
         } finally {

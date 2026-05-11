@@ -2,13 +2,13 @@ import { useState } from "react";
 import { dbService } from "../services/dbService";
 import { Link } from 'react-router-dom' //
 import { supabase } from '../services/supabase'; // Importe a instância do supabase para pegar o usuário
-
+import { useNavigate } from "react-router-dom";
 
 export function CriarSistema() {
     const [loading, setLoading] = useState(false)
     const [tipo, setTipo] = useState('')
     const [nome, setNome] = useState('')
-
+    const navigate = useNavigate(); // 🔹 hook para redirecionar
     const handleCriar = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -20,6 +20,7 @@ export function CriarSistema() {
             setTipo('')
 
             // Aqui eu posso redirecionar o usuario para outra tela
+            navigate('/')
         } catch (error) {
             alert("Erro ao criar: " + error.message)
         } finally {
