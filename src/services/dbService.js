@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-
+import * as XLSX from 'xlsx';
 
 
 export const dbService = {
@@ -178,29 +178,73 @@ export const dbService = {
 
 
     async listarOcorrencias() {
-  const { data, error } = await supabase
-    .from("ocorrencias")
-    .select(`
+        const { data, error } = await supabase
+            .from("ocorrencias")
+            .select(`
       *,
       clientes:id_cliente (nome),
       sistemas:id_sistema (nome_sistema),
       suportes:id_suporte (nome),
       problemas:id_problema (problema)
     `) // O formato 'apelido:coluna_fk (campos)' ajuda o Supabase a se achar
-    .order("data_chamado", { ascending: false });
+            .order("data_chamado", { ascending: false });
 
-  if (error) {
-    throw new Error("Erro ao listar ocorrências: " + error.message);
-  }
+        if (error) {
+            throw new Error("Erro ao listar ocorrências: " + error.message);
+        }
 
-  return data.map(oc => ({
-    ...oc,
-    nome_cliente: oc.clientes?.nome || "Não informado",
-    nome_sistema: oc.sistemas?.nome_sistema || "Não informado",
-    nome_suporte: oc.suportes?.nome || "Sem responsável",
-    nome_problema: oc.problemas?.problema || "Sem Problema",
-  }));
-}
+        return data.map(oc => ({
+            ...oc,
+            nome_cliente: oc.clientes?.nome || "Não informado",
+            nome_sistema: oc.sistemas?.nome_sistema || "Não informado",
+            nome_suporte: oc.suportes?.nome || "Sem responsável",
+            nome_problema: oc.problemas?.problema || "Sem Problema",
+        }));
+    },
+
+
+    // FUNÇÕES DE EXPORTAR TABELA
+    async exportarOcorrenciasParaExcel() {
+        try {
+            // 1. Busca os dados (reutilizando sua função existente)
+            const dados = await this.listarOcorrencias();
+
+            if (!dados || dados.length === 0) {
+                alert("Não há dados para exportar.");
+                return;
+            }
+
+            // 2. Formata os dados para a planilha (removendo o que não precisa ou renomeando colunas)
+            const dadosFormatados = dados.map(oc => ({
+                "ID": oc.id,
+                // Correção aqui: Adicionando { timeZone: 'UTC' }
+                "Data do Chamado": new Date(oc.data_chamado).toLocaleDateString('pt-BR', { timeZone: 'UTC' }),
+                "Cliente": oc.nome_cliente,
+                "Sistema": oc.nome_sistema,
+                "Problema": oc.nome_problema,
+                "Suporte": oc.nome_suporte,
+                "Status": oc.status.toUpperCase(),
+                "Hora Inicial": oc.hora_inicial,
+                "Hora Final": oc.hora_final,
+                // Correção aqui também para a data de resposta
+                "Data Resposta": oc.data_resposta 
+                    ? new Date(oc.data_resposta).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) 
+                    : "-"
+            }));
+
+            // 3. Cria a planilha
+            const worksheet = XLSX.utils.json_to_sheet(dadosFormatados);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Ocorrências");
+
+            // 4. Gera o arquivo e inicia o download
+            XLSX.writeFile(workbook, `fOcorrencias_${new Date().getTime()}.xlsx`);
+
+        } catch (error) {
+            console.error("Erro ao exportar Excel:", error);
+            throw error;
+        }
+    }
 }
 
 

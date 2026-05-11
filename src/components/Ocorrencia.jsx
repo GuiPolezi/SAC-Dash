@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { dbService } from "../services/dbService";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { GerarPlanilhaOcorrencias } from "./Planilhas";
+
 
 /**
  * Componente unificado de criação e edição de ocorrência.
@@ -413,6 +415,7 @@ export function OcorrenciaLista() {
             >
             Novo Chamado
             </Link>
+            <GerarPlanilhaOcorrencias />
         </div>
       </div>
 
