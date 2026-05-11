@@ -47,6 +47,8 @@ export function Clientes() {
             columns={columns}
             createLink="/clientes/novo"
             createText="Novo Cliente"
+            homeLink="/"
+            homeText="Voltar"
         />
     )
 }
