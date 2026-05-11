@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { dbService } from '../services/dbService'
 import { DataTable } from '../components/DataTable'
 import { Link } from 'react-router-dom'
-
+import { GerarPlanilhaSistemas } from '../components/Planilhas'
 
 export function Sistemas() {
     const [sistema, setSistema] = useState([])
@@ -49,6 +49,7 @@ export function Sistemas() {
             createText="Novo Sistema"
             homeLink="/"
             homeText="Voltar"
+            actions={<GerarPlanilhaSistemas />}
         />
     )
 }

@@ -327,6 +327,33 @@ export const dbService = {
             throw error;
         }
     },
+
+    async exportarSistemasParaExcel() {
+        try {
+            const dados = await this.listarSistemas();
+
+            if (!dados || dados.length === 0) {
+                alert("Não há dados para exportar.");
+                return;
+            }
+
+             const dadosFormatados = dados.map(oc => ({
+                "codigo_sistema": oc.codigo_sistema,
+                "Tipo": oc.tipo,
+                "Nome": oc.nome,
+            }));
+
+            // Cria a planilha
+            const worksheet = XLSX.utils.json_to_sheet(dadosFormatados);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Sistemas");
+
+            XLSX.writeFile(workbook, `dSistemas_${new Date().getTime()}.xlsx`);
+        } catch (error) {
+            console.error("Erro ao exportar Excel: ", error)
+            throw error;
+        }
+    },
 }
 
 

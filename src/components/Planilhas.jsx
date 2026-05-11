@@ -107,4 +107,33 @@ export function GerarPlanilhaSuportes() {
             {isExporting ? 'Gerando Planilha...' : 'Exportar para Excel'}
         </button>
     )
+    
+}
+
+
+export function GerarPlanilhaSistemas() {
+    const [isExporting, setIsExporting] = useState(false);
+
+    const handleExportar = async () => {
+        try {
+            setIsExporting(true);
+            await dbService.exportarSistemasParaExcel();
+        } catch (erro) {
+            console.erro("Falha na exportação: ", erro)
+        } finally {
+            setIsExporting(false);
+        }
+    };
+
+    return (
+        <button 
+            onClick={handleExportar} 
+            className="btn-excel"
+            disabled={isExporting}
+            style={{ opacity: isExporting ? 0.7 : 1, cursor: isExporting ? 'not-allowed' : 'pointer' }}
+        >
+            {isExporting ? 'Gerando Planilha...' : 'Exportar para Excel'}
+        </button>
+    )
+    
 }
