@@ -11,6 +11,7 @@ import { CriarSuporte } from "./components/Suporte"
 import { CriarSistema } from "./components/Sistema"
 import { CriarProblema } from "./components/Problema"
 import { Dashboard } from "./pages/Dashboard"
+import { Suportes } from "./pages/Suportes"
 
 export default function AppRoutes({ session }) {
   return (
@@ -94,6 +95,15 @@ export default function AppRoutes({ session }) {
         element={
           <PrivateRoute session={session}>
             <CriarSuporte />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/suportes"
+        element={
+          <PrivateRoute session={session}>
+            <Suportes />
           </PrivateRoute>
         }
       />

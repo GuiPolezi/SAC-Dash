@@ -63,7 +63,7 @@ export const dbService = {
     async listarClientes() {
         const { data, error } = await supabase
             .from('clientes')
-            .select('codigo_cliente, nome, cidade')
+            .select('codigo_cliente, nome, cidade, data_inscricao')
             .order('nome')
 
         if (error) throw error
@@ -74,7 +74,7 @@ export const dbService = {
     async listarSuportes() {
         const { data, error } = await supabase
             .from('suporte')
-            .select('codigo_suporte, nome')
+            .select('codigo_suporte, nome, sexo, data_nascimento')
             .order('nome')
 
         if (error) throw error

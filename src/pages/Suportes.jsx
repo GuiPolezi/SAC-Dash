@@ -4,15 +4,15 @@ import { dbService } from '../services/dbService'
 import { DataTable } from '../components/DataTable'
 import { Link } from 'react-router-dom'
 
-export function Clientes() {
-    const [clientes, setClientes] = useState([])
+export function Suportes() {
+    const [suporte, setSuporte] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         async function carregar() {
             try {
-                const dados = await dbService.listarClientes()
-                setClientes(dados)
+                const dados = await dbService.listarSuportes()
+                setSuporte(dados)
             } catch (error) {
                 console.error('Erro ao carregar:', error)
             } finally {
@@ -23,14 +23,14 @@ export function Clientes() {
     }, [])
 
     const columns = [
-        { header: 'Código', accessor: 'codigo_cliente' },
+        { header: 'Código', accessor: 'codigo_suporte' },
         { header: 'Nome', accessor: 'nome' },
-        { header: 'Cidade', accessor: 'cidade' },
-        { header: 'Data Inscrição', accessor: 'data_inscricao' },
+        { header: 'Sexo', accessor: 'sexo' },
+        { header: 'Data Nascimento', accessor: 'data_nascimento' },
         {
             header: 'Ações',
             cell: (row) => (
-                <Link to={`/clientes/${row.codigo_cliente}/editar`} className="text-blue-600 hover:text-blue-800">
+                <Link to={`/suportes/${row.codigo_cliente}/editar`} className="text-blue-600 hover:text-blue-800">
                     Editar
                 </Link>
             )
@@ -41,12 +41,12 @@ export function Clientes() {
 
     return (
         <DataTable
-            title="Clientes"
-            description="Gerencie todos os clientes do sistema"
-            data={clientes}
+            title="Suportes"
+            description="Gerencie todos os suportes do sistema"
+            data={suporte}
             columns={columns}
-            createLink="/clientes/novo"
-            createText="Novo Cliente"
+            createLink="/suportes/novo"
+            createText="Novo Suporte"
         />
     )
 }
