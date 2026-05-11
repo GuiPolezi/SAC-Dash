@@ -3,7 +3,6 @@ import { dbService } from "../services/dbService";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { GerarPlanilhaOcorrencias } from "./Planilhas";
 
-
 /**
  * Componente unificado de criação e edição de ocorrência.
  *
@@ -464,86 +463,69 @@ export function OcorrenciaLista() {
                 </div>
             </div>
 
-            {/* Lista Diária de Chamados */}
-            <div className="space-y-3">
-                {chamadosDoDia.length === 0 ? (
-                    <div className="bg-white rounded-2xl border border-dashed border-gray-300 p-12 text-center">
-                        <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
-                        <h3 className="text-lg font-medium text-gray-900">Nenhum chamado para este dia</h3>
-                        <p className="text-gray-500 mt-1">Selecione outra data ou crie um novo registro.</p>
-                    </div>
-                ) : (
-                    chamadosDoDia.map((oc) => (
-                        <div 
-                            key={oc.id} 
-                            className="group flex flex-col md:flex-row bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#283618]/30 transition-all overflow-hidden relative"
-                        >
-                            {/* Barra lateral de cor (indicador de status visual) */}
-                            <div className={`w-1.5 md:w-2 shrink-0 ${oc.status === 'aberto' ? 'bg-amber-400' : oc.status === 'concluido' ? 'bg-emerald-500' : 'bg-blue-500'}`}></div>
+            {/* Empty State */}
+            {chamadosDoDia.length === 0 ? (
+                <div className="bg-white rounded-2xl border border-dashed border-gray-300 p-12 text-center">
+                    <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                    <h3 className="text-lg font-medium text-gray-900">Nenhum chamado para este dia</h3>
+                    <p className="text-gray-500 mt-1">Selecione outra data ou crie um novo registro.</p>
+                </div>
+            ) : (
+                /* Grid de 4 colunas nativo do Tailwind */
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-start">
+                    {chamadosDoDia.map((oc) => (
+                        <div key={oc.id} className="group flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all overflow-hidden relative">
+                            {/* Barra de Topo em vez de lateral para economizar espaço */}
+                            <div className={`h-1.5 w-full shrink-0 ${oc.status === 'aberto' ? 'bg-amber-400' : oc.status === 'concluido' ? 'bg-emerald-500' : 'bg-blue-500'}`}></div>
                             
-                            <div className="flex flex-1 flex-col md:flex-row items-start md:items-center p-4 md:p-5 gap-4 md:gap-6">
-                                
-                                {/* Bloco de Horário */}
-                                <div className="flex flex-col min-w-[80px]">
-                                    <span className="text-xl font-bold text-gray-800 tracking-tight">
+                            <div className="p-4 flex flex-col gap-3">
+                                {/* Header do Card (Hora e ID) */}
+                                <div className="flex justify-between items-center">
+                                    <span className="text-lg font-bold text-gray-800">
                                         {oc.hora_inicial ? oc.hora_inicial.substring(0, 5) : '--:--'}
                                     </span>
-                                    <span className="text-xs font-medium text-gray-400 uppercase tracking-wider mt-0.5">#{oc.id}</span>
+                                    <span className="text-xs font-bold text-gray-400 uppercase">#{oc.id}</span>
                                 </div>
 
-                                {/* Bloco de Informações Principais */}
-                                <div className="flex-1 min-w-0 w-full">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <h3 className="text-lg font-bold text-gray-900 truncate">{oc.nome_cliente}</h3>
-                                        <p>- {oc.cidade_cliente}</p>
-                                        <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600 border border-gray-200">
-                                            {oc.nome_sistema}
+                                {/* Info Principal */}
+                                <div>
+                                    <h3 className="text-base font-bold text-gray-900 line-clamp-1" title={oc.nome_cliente}>
+                                        {oc.nome_cliente}
+                                    </h3>
+                                    <p className="text-sm text-gray-500 truncate">{oc.cidade_cliente}</p>
+                                </div>
+
+                                <p className="text-sm text-gray-700 bg-gray-50 p-2 rounded border border-gray-100 line-clamp-2">
+                                    {oc.nome_problema}
+                                </p>
+
+                                {/* Footer do Card */}
+                                <div className="flex items-center justify-between mt-1 pt-3 border-t border-gray-100">
+                                    <small className="text-gray-600 truncate mr-2"><strong>Suporte:</strong> {oc.nome_suporte}</small>
+                                    
+                                    <div className="flex items-center gap-2 shrink-0">
+                                        <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                            oc.status === 'aberto' ? 'bg-amber-100 text-amber-800' : 
+                                            oc.status === 'concluido' ? 'bg-emerald-100 text-emerald-800' : 
+                                            'bg-blue-100 text-blue-800'
+                                        }`}>
+                                            {oc.status}
                                         </span>
+                                        
+                                        <Link 
+                                            to={`/ocorrencias/${oc.id}/editar`}
+                                            className="text-gray-400 hover:text-blue-600 p-1 bg-gray-50 hover:bg-blue-50 rounded transition-colors"
+                                            title="Editar Chamado"
+                                        >
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                        </Link>
                                     </div>
-                                    <p className="text-gray-600 line-clamp-2 md:line-clamp-1 text-sm md:text-base leading-relaxed">
-                                        {oc.nome_problema}
-                                    </p>
-                                </div>
-
-                                {/* Bloco de Responsável e Status */}
-                                <div className="flex flex-row md:flex-col items-center md:items-end justify-between w-full md:w-auto gap-3 md:gap-2">
-                                    <div className="flex items-center gap-1.5 text-sm font-medium text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                                        {oc.nome_suporte || 'Sem Suporte'}
-                                    </div>
-                                    <span className={`px-2.5 py-1 rounded-md text-xs font-semibold uppercase tracking-wider ${
-                                        oc.status === 'aberto' ? 'bg-amber-100 text-amber-800' : 
-                                        oc.status === 'concluido' ? 'bg-emerald-100 text-emerald-800' : 
-                                        'bg-blue-100 text-blue-800'
-                                    }`}>
-                                        {oc.status}
-                                    </span>
-                                </div>
-
-                                {/* Botão Editar (Aparece no hover em Desktop) */}
-                                <div className="hidden md:flex ml-2">
-                                    <Link 
-                                        to={`/ocorrencias/${oc.id}/editar`}
-                                        className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
-                                        title="Editar Chamado"
-                                    >
-                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-                                    </Link>
-                                </div>
-                                {/* Botão Editar para Mobile (Sempre visível) */}
-                                <div className="w-full md:hidden pt-3 mt-1 border-t border-gray-100">
-                                    <Link 
-                                        to={`/ocorrencias/${oc.id}/editar`}
-                                        className="flex items-center justify-center gap-2 w-full py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg"
-                                    >
-                                        Editar Chamado
-                                    </Link>
                                 </div>
                             </div>
                         </div>
-                    ))
-                )}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
